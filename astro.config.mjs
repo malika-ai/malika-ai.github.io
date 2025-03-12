@@ -8,6 +8,9 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Malika Tools Docs',
+			head: [
+				{ tag: 'link', attrs: { rel: 'icon', type: 'image/png', href: '/favicon.webp' } }
+			],
 			social: {
 				instagram: 'https://www.instagram.com/officialmalika.ai/'
 			},
