@@ -1,18 +1,15 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://malika-ai.github.io',
 	integrations: [
 		starlight({
-			head: [
-				{ tag: 'link', attrs: { rel: 'icon', type: 'image/png', href: '/favicon.webp' } }
-			],
 			title: 'Malika Tools Docs',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				instagram: 'https://www.instagram.com/officialmalika.ai/'
 			},
 			sidebar: [
 				{
@@ -27,6 +24,8 @@ export default defineConfig({
 					autogenerate: { directory: 'reference' },
 				},
 			],
+			customCss: ['./src/tailwind.css'],
 		}),
+		tailwind({ applyBaseStyles: false }),
 	],
 });

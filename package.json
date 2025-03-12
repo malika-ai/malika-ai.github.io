@@ -1,5 +1,5 @@
 {
-  "name": "far-force",
+  "name": "evolved-event",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -7,14 +7,14 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "predeploy": "astro build",
-    "deploy": "gh-pages -d dist"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.32.2",
+    "@astrojs/starlight-tailwind": "^3.0.0",
+    "@astrojs/tailwind": "^5.1.4",
     "astro": "^5.1.5",
-    "gh-pages": "^6.3.0",
-    "sharp": "^0.32.5"
+    "sharp": "^0.32.5",
+    "tailwindcss": "^3.4.4"
   }
 }
