@@ -7,7 +7,10 @@ export default defineConfig({
 	site: 'https://malika-ai.github.io',
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			head: [
+				{ tag: 'link', attrs: { rel: 'icon', type: 'image/png', href: '/favicon.webp' } }
+			],
+			title: 'Malika Tools Docs',
 			social: {
 				github: 'https://github.com/withastro/starlight',
 			},
