@@ -9,7 +9,7 @@ export default defineConfig({
 		starlight({
 			title: 'Malika Tools Docs',
 			head: [
-				{ tag: 'link', attrs: { rel: 'icon', type: 'image/png', href: '/favicon.webp' } }
+				{ tag: 'link', attrs: { rel: 'icon', type: 'image/webp', href: '/favicon.webp' } }
 			],
 			social: {
 				instagram: 'https://www.instagram.com/officialmalika.ai/'
@@ -18,13 +18,11 @@ export default defineConfig({
 				{
 					label: 'Guides',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Search', slug: 'tools/search' },
+						{ label: 'Cek Ongkir', slug: 'tools/ongkir' },
+						{ label: 'Custom Function', slug: 'tools/custom-function' },
+						{ label: 'Scheduler', slug: 'tools/scheduler' },
 					],
-				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
 				},
 			],
 			customCss: ['./src/tailwind.css'],
