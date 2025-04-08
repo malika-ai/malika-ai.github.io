@@ -1,0 +1,49 @@
+---
+title: Understanding Malika Tools v2
+description: How does Malika Tools v2 works?
+---
+
+[Malika Tools](https://tools.malika.ai) adalah sebuah middleware yang menjembatani interaksi Cekat AI dengan sistem atau data-data milik klien. Malika Tools bertujuan buat jadi "pintu" yang standar buat Cekat AI untuk nyatuin berbagai data dan _use case_ yang beda-beda. Di sini, kamu bisa memanfaatkan fitur-fitur dari Malika Tools yang dijelaskan seperti berikut.
+
+![Halaman Login Malika Tools](../../../assets/malika-tools/malika-tools-dashboard.png)
+<p style="text-align:center;">Halaman Login Malika Tools</p>
+
+## Features
+
+Buat sekarang ini, terdapat beberapa fitur utama yang udah dikembangin di Malika Tools ini, yaitu:
+
+### Search
+
+Digunain buat ngeintegrasiin Malika Tools dengan data-data dari pihak klien dengan platform yang macem-macem. Untuk saat ini, fitur Search hanya memiliki dua _connector_ terkait platform: Google Sheet dan Jubelio. Untuk penjelasan lengkap mengenai fitur Search dapat dilihat pada bagian [Search](/tools/search)
+
+### Cek Ongkir
+
+Pake API Raja Ongkir buat ngecek ongkir tapi input alamatnya jauh lebih simpel dan fleksibel. Terdapat 4 input: `origin`, `destination`, `courier`, dan `weight` yang wajib diisi untuk mendapatkan data harga ongkir. Untuk penjelasan lengkap mengenai fitur Cek Ongkir dapat dilihat pada bagian [Cek Ongkir](/tools/ongkir)
+
+### Custom Function
+
+Di sini, kamu bisa nulis kode kamu sendiri yang bertujuan buat nglengkapin _edge cases_ yang tidak tercakup dari fitur-fitur di atas tapi tetep modular dan scalable, misal buat perhitungan total harga dengan kombinasi cek ongkir dan lain sebagainya. _Custom function_ ini pake _runtime_ Python sebagai kode utamanya.
+
+### Upcoming Features
+
+Terdapat fitur fitur keren lain seperti _scheduler_, _invoice generator_, dan lain sebagainya yang masih dikembangin.
+
+## Inside the Tools
+
+Malika Tools dibangun menggunakan FastAPI dengan basis Python versi 3.10+ untuk mengakomodir segala kebutuhan terkait proses bisnis di dalamnya. Untuk dashboard sendiri, Malika Tools menggunakan React yang di-bundle menggunakan Vite bundler untuk mempercepat proses build dari SPA yang dikembangkan daripada menggunakan Webpack.
+
+### Dashboard
+
+### Backend
+
+- how does the search feature works
+  - data clone
+  - sync
+  - etc
+- explain about PostgreSQL
+  - the PostgreSQL database is mainly used as "Elasticsearch" infrastructure of Malika Tools, the "OLTP" database is our clients data which stored in many forms (we will call and mention it as **connector** later)
+  - syncing is mandatory
+
+## What is the differences with former Malika Tools?
+
+- Data syncing

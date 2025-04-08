@@ -12,16 +12,31 @@ export default defineConfig({
 				{ tag: 'link', attrs: { rel: 'icon', type: 'image/webp', href: '/favicon.webp' } }
 			],
 			social: {
-				instagram: 'https://www.instagram.com/officialmalika.ai/'
+				instagram: 'https://www.instagram.com/officialmalika.ai/',
+				github: 'https://github.com/malika-ai'
 			},
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'General',
+					items: [
+						{ label: 'Malika and Cekat AI', slug: 'general/malika-cekat' },
+						{ label: 'Understanding Malika Tools', slug: 'general/malika-tools' },
+					],
+				},
+				{
+					label: 'Tools',
 					items: [
 						{ label: 'Search', slug: 'tools/search' },
 						{ label: 'Cek Ongkir', slug: 'tools/ongkir' },
 						{ label: 'Custom Function', slug: 'tools/custom-function' },
 						{ label: 'Scheduler', slug: 'tools/scheduler' },
+						{ label: 'Invoice', slug: 'tools/invoice' },
+					],
+				},
+				{
+					label: 'Misc',
+					items: [
+						{ label: 'Investigating Errors', slug: 'misc/investigating-errors' },
 					],
 				},
 			],

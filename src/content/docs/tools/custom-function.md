@@ -3,9 +3,24 @@ title: Custom Function
 description: A reference page in my new Starlight docs site.
 ---
 
-Reference pages are ideal for outlining how things work in terse and clear terms.
-Less concerned with telling a story or addressing a specific use case, they should give a comprehensive outline of what your documenting.
+## Prepare the Code
 
-## Further reading
+### Available Modules
 
-- Read [about reference](https://diataxis.fr/reference/) in the Diátaxis framework
+### Use Your IDE
+
+## Create New Function
+
+## Execute Function
+
+Soon to be developed
+
+## Copy the Webhook URL
+
+- input request body
+- in Cekat
+  - name
+  - description
+  - request body: depends on the function args
+
+## Update and Delete
