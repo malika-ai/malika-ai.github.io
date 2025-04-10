@@ -5,14 +5,14 @@ description: How do they actually work?
 
 import { Aside } from '@astrojs/starlight/components';
 
-## About Cekat and The Root Issue
-
 Cekat AI adalah platform kecerdasan buatan yang dirancang untuk meningkatkan interaksi antara bisnis dan pelanggan melalui agen AI yang mampu berkomunikasi secara natural dan memahami konteks percakapan. Dikembangkan oleh Matthew Sebastian dan Nicholas Alden Liem, Cekat AI bertujuan memberikan solusi layanan pelanggan yang efisien dan responsif.
 
 Cekat AI pake _Natural Language Processing_ (NLP) sebagai algoritma utama untuk ngeproses dan mahamin pesan-pesan teks yang diminta oleh customer melalui berbagai _connected platforms_, seperti WhatsApp, Instagram, atau Live Chat. Pesan-pesan yang diproses tersebut akan dipahami oleh si AI, lalu dikembaliin respon sesuai dengan yang diminta si customer, seperti menanyakan katalog, membaca _invoice_, melakukan _upselling_, dan lain sebagainya.
 
 ![Alur Umum Customer ke Cekat AI](../../../assets/malika-cekat/cekat-ai-basic-flows.png)
 <p style="text-align:center;">Alur Umum Customer ke Cekat AI</p>
+
+## About Cekat and The Root Issue
 
 Sebenernya, fungsionalitas bawaan dari Cekat AI udah cukup banget buat ngebantu tim _sales_ ngejalanin proses-proses penjualan dari bisnis yang ditentukan. Namun, semakin besar bisnis, proses pendataan data di dalemnya juga ikutan kompleks. AI Knowledge yang bisa ditulis di dalam CRM Cekat AI gak akan cukup untuk meng-_cover_ keseluruhan data barang yang hendak dimuat sama klien. Selain banyak dan besar, data yang disimpan dinamis banget terutama data terkait harga dan katalog. Selain itu, terdapat data dari klien yang disimpan di platform-platoform yang berbeda, seperti API baik REST ataupun GraphQL, Google Sheet, dan lain sebagainya yang makin nyusahin kita kalo semata-mata cuma ngandelin AI Knowledge. Cekat AI juga belum bisa melakukan fitur-fitur klien unik bin aneh lain seperti _scheduling_ menggunakan Cron Job, pake API-nya si Raja Ongkir, perhitungan total harga yang kompleks dan ekstensi ke _third parties_ yang lainnya.
 
@@ -28,8 +28,8 @@ Gampangnya, Malika Tools itu _middleware_ (atau bisa juga disebut _webhook_/API/
 #### "Bahasa Bayi" about Cekat AI
 
 Intinya, Cekat AI tuh punya dua "sumber pengetahuan" yang bisa diambil:
-1. **AI Knowledge** ➡️ Statis dan internal (ditulis langsung di dalem CRM), berbasis teks atau paragraf, dan gak bisa akomodir data-data yang dinamis (karena ditulis manual).
-2. **Integrations** ➡️ Dinamis dan eksternal (masukin link API ke CRM), bisa akomodir data-data dinamis karena data di-_supply_ dari pihak eksternal, skemanya Cekat AI request data tertentu -> pihak eksternal ngembaliin datanya.
+1. **AI Knowledge** ➡️ Statis dan internal (ditulis langsung di dalem CRM), berbasis teks atau paragraf, dan gak bisa akomodir data yang dinamis (karena ditulis manual).
+2. **Integrations** ➡️ Dinamis dan eksternal (masukin link API ke CRM), bisa akomodir data dinamis karena data di-_supply_ dari pihak eksternal, skemanya Cekat AI request data tertentu -> pihak eksternal ngembaliin datanya.
 
 Pihak eksternal yang ada di **Integrations** ini macem-macem, bisa dilewatin API si Malika Tools, atau langsung nge-_hit_ API klien langsung, kek Nuna atau QHomeMart (meskipun kebanyakan kasus di Malika, pake _tools_ kita sendiri _which is_ Malika Tools). 
 
@@ -45,7 +45,7 @@ Nah, kalo _middleware_ itu adalah istilah yang bisa diibaratin sebagai jembatan 
 
 ##### Nah terus apa dong ngaruhnya sama Cekat AI dan Malika Tools?
 
-Seperti yang udah dijelasin sebelumnya, Malika Tools ini bisa dibilang sebuah _middleware_ (atau aplikasi penghubung) antara Cekat AI (aplikasi web juga) ke data-data klien, yang mana bentuk dan formatnya macem-macem. Malika Tools ini bertindak sebagai "mesin pencari" dari _request_ _user_ ke data-data klien yang disambungkan ke Malika Tools. Biar lebih jelas, kita kasih contoh sebuah kasus berikut.
+Seperti yang udah dijelasin sebelumnya, Malika Tools ini bisa dibilang sebuah _middleware_ (atau aplikasi penghubung) antara Cekat AI (aplikasi web juga) ke data klien, yang mana bentuk dan formatnya macem-macem. Malika Tools ini bertindak sebagai "mesin pencari" dari _request_ _user_ ke data klien yang disambungkan ke Malika Tools. Biar lebih jelas, kita kasih contoh sebuah kasus berikut.
 
 <Aside>
 
@@ -64,7 +64,7 @@ Pertanyaan selanjutnya yang mungkin kebayang..
 
 Jawabannya adalah:
 1. Seperti yang udah dijelasin, karena datanya dinamis dan cepet berubah, mindah satu2 data baru ke AI Knowledge akan sangat _tedious_ dan melelahkan
-2. Cekat AI secara langsung belum punya fitur _connector_ ke data-data dari berbagai platform seperti Google Sheet atau yang lainnya, jadi diperluin _tools_ khusus untuk meng-_handle_ itu semua, yakni si _middleware_ Malika Tools ini
+2. Cekat AI secara langsung belum punya fitur _connector_ ke data dari berbagai platform seperti Google Sheet atau yang lainnya, jadi diperluin _tools_ khusus untuk meng-_handle_ itu semua, yakni si _middleware_ Malika Tools ini
 
 
 ### What about API or Webhook? Are They Interchangeable?
@@ -163,7 +163,7 @@ Untuk fitur apa saja yang ada di Malika Tools beserta address dan input-nya, kam
 ## How Cekat AI's Tool Could Seamlessly Works with Malika Tools v2 API Together?
 
 Berkat fitur Integrations ini, kapabilitas Cekat AI buat nglakuin integrasi ke sistem-sistem lain jadi lebih gampang dan fleksibel. Dengan ngemanfaatin fitur ini, tim Malika nyoba untuk ngembangin sebuah _middleware_ yang berkomunikasi dengan basis API dan _webhook_ untuk menyempurnakan proses-proses bisnis yang kian hari makin dinamis dan kompleks dari tiap-tiap klien, terutama yang ada hubungannya sama data katalog dan lain sebagainya. Sampe sekarang, Malika Tools telah berhasil ngembangin beberapa fitur utama antara lain
-1. **Search** ➡️ Digunain buat ngeintegrasiin Malika Tools dengan data-data dari pihak klien dengan platform yang macem-macem
+1. **Search** ➡️ Digunain buat ngeintegrasiin Malika Tools dengan data dari pihak klien dengan platform yang macem-macem
 2. **Cek Ongkir** ➡️ Pake API Raja Ongkir buat ngecek ongkir tapi input alamatnya jauh lebih simpel dan fleksibel
 3. **Custom Function** ➡️ Nglengkapin _edge cases_ yang tidak tercakup dari fitur-fitur di atas tapi tetep modular dan scalable, misal buat perhitungan total harga dengan kombinasi cek ongkir dan lain sebagainya
 4. dan _upcoming features_ yang lain seperti _scheduler_, _invoice generator_, dan lain sebagainya.
