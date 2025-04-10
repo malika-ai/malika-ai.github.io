@@ -3,7 +3,9 @@ title: Custom Function
 description: A reference page in my new Starlight docs site.
 ---
 
-## Prepare the Code
+Soon to be updated, stay tune! 😉
+
+<!-- ## Prepare the Code
 
 ### Available Modules
 
@@ -23,4 +25,4 @@ Soon to be developed
   - description
   - request body: depends on the function args
 
-## Update and Delete
+## Update and Delete -->
