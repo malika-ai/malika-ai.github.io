@@ -142,19 +142,37 @@ Berikut adalah contoh data Google Sheet yang udah sesuai format dan yang tidak s
 
 Setelah data Google Sheet dah dibuat format sesuai dengan yang udah dibahas di [Data Preparation](#data-preparation), kamu bisa mulai gabungin data Google Sheet ke Malika Tools dengan membuat _profile_ Google Sheet baru di Malika Tools. Nantinya, _profile_ yang dibuat akan membuat _webhook_ baru yang bisa diakses sama si Cekat AI, dengan langkah-langkah berikut:
 
-![Alur Membuat _Profile_ Baru](../../../assets/search/create-sheet-flow.png)
-<p style="text-align:center;">Alur Membuat _Profile_ Baru</p>
+![Alur Membuat _Profile_ Baru (Google Sheet)](../../../assets/search/create-sheet-flow.png)
+<p style="text-align:center;">Alur Membuat _Profile_ Baru (Google Sheet)</p>
 
 1. Buka https://tools.malika.ai lalu navigasi ke Tools > Search
 2. Klik tombol "Tambah Connector" di sebelah kanan
 3. Pilih Google Sheet untuk profil yang akan dibuat
 4. Isi parameter Nama Profil (a), Deskripsi Profil (b), dan URL Google Sheet (c). Pastikan URL Google Sheet adalah link yang valid agar tidak error. Apabila valid, maka klik tombol "Dapatkan URL" (d) untuk mendapatkan informasi _worksheet_ dan kolom dari data Google Sheet
+
+<Aside type="caution">
+
+#### Naming the Profile
+
+Format nama yang diperbolehkan ketika ingin membuat profile _webhook_ hanya boleh dipisah menggunakan spasi, underscore (`_`), atau strip (`-`).
+
+Contoh:
+- katalog_malika_ai ✅
+- KATALOG MALIKA AI ✅
+- Katalog-Malika-AI ✅
+- Katalog@Malika@AI ❌
+- Katalog (Malika AI) ❌
+
+</Aside>
+
 5. Pilih _worksheet_ yang ingin diintegrasi dan search group yang relevan. Search group adalah kolom-kolom mana yang akan diperhitungkan selama proses pencarian berlangsung. Apabila semua sudah diisi, maka klik tombol "Tambah"
 6. Apabila berhasil, maka akan muncul pesan notifikasi sukses di bagian atas Malika Tools
 
+
+
 Profil yang dibuat tersebut di balik layar sebenernya ngebuat _webhook_ untuk data yang dah berhasil kamu tambah. So, kamu bisa daftarin _webhook_ itu di tools-nya Cekat AI bagian Integrations.
 
-<Aside type="danger">
+<Aside type="caution">
 
 ##### 1 Worksheet = 1 Profile/Webhook!
 
@@ -217,52 +235,110 @@ Seperti yang udah dijelasin, mekanisme Malika Tools yang baru ini adalah melakuk
 
 Terdapat dua cara untuk melakukan ini, yaitu secara langsung di dalam dashboard https://tools.malika.ai atau menggunakan trigger eksternal milik https://tools.malika.ai
 
+![Perbandingan Metoed Sinkronisasi Data](../../../assets/search/sync-method-comparison.png)
+<p style="text-align:center;">Perbandingan Metoed Sinkronisasi Data</p>
+
 #### 1. Directly from dashboard
 
-Kamu bisa melakukan sinkron di tombol "Sinkronisasi Data" di bawah saat membuka profil di Malika Tools
+Kamu bisa melakukan sinkron menggunakan tombol "Sinkronisasi Data" di bawah saat membuka salah satu profil di Malika Tools
+
+![Sinkronisasi via Dashboard](../../../assets/search/sync-via-dashboard.png)
+<p style="text-align:center;">Sinkronisasi via Dashboard</p>
 
 #### 2. Using external trigger created from dashboard
 
-Kamu bisa melakukan sinkron di tombol "Sinkronisasi Data" di bawah saat membuka profil di Malika Tools
+Kamu bisa klik tombol "Salin Trigger Sinkronisasi" lalu kamu bakal ndapetin link URL baru. Setelah itu _paste_ link tersebut di web browser dan kamu akan melihat tampilan kurang lebih seperti di bawah.
+
+![Trigger Sinkronisasi Eksternal](../../../assets/search/external-sync-trigger.png)
+<p style="text-align:center;">Trigger Sinkronisasi Eksternal</p>
+
+Klik tombol "Sinkronisasi Data" dan semuanya sama persis seperti saat sinkronisasi langsung di dashboard.
+
+<Aside type="caution">
+
+##### Occasionally Check the Status!
+
+Proses sinkronisasi berjalan di server secara asinkron, jadi kamu perlu secara berkala untuk cek apakah proses sinkronisasi dengan `task_id` terkait sudah selesai apa belum. **JANGAN REFRESH sebelum status dari sinkronisasi berubah menjadi ✅.**
+
+</Aside>
+
+#### What's the Difference Between those Two?
+
+Secara algoritma sinkronisasi sama aja, tapi sinkronisasi via dashboard harus memerlukan login terlebih dahulu. Hal tersebut gak ada di _trigger_ eksternal, yang mana bisa secara publik diakses oleh klien. Dengan begitu, klien dapat bisa secara partisipatif ikut ngesinkronin data mereka sendiri ketika ada perubahan.
 
 ### Search Playground
 
-- relation from profile and search features
-- directly from tools.malika.ai
-- hit from Cekat AI in Integrations tab
+Kamu juga bisa ngetes apakah Search-nya bekerja dengan baik atau tidak di bagian Search Playground. Format-format yang sudah dijelaskan di [Delve More about Search feature](#delve-more-about-search-feature) juga berlaku di sini.
+
+![Search Playground Malika Tools](../../../assets/search/search-playground.png)
+<p style="text-align:center;">Search Playground Malika Tools</p>
+
+Kamu juga bisa melakukan tes pencarian data langsung dari Cekat AI melalui tools di menu Integration
+
+![Search Playground Cekat AI](../../../assets/search/search-playground-cekat.png)
+<p style="text-align:center;">Search Playground Cekat AI</p>
 
 ### Update and Delete
+
+Kamu juga bisa mengubah informasi mengenai profil seperti nama, deskripsi, _worksheet_, atau _search group_ dengan menekan tombol "Edit". Di sini, kamu bisa mengganti nama dan deskripsi secara bebas tanpa harus ada _character restriction_, misal `Katalog Malika AI (v2)`.
+
+Apabila tidak digunakan, kamu bisa menghapus profil dengan menekan tombol "Hapus" disamping tombol "Edit"
 
 ### Add Row
 
-- sheet must contains existing value in there to append the new data row
+> On Development, Coming Soon ⚠️
 
 ## Jubelio
 
+Selain _connector_ ke platform Google Sheet, Malika Tools juga nyediain _connector_ ke platform Jubelio juga lho! Untuk saat ini, _connector_ ini sudah bisa meng-_cover_ fitur pencarian data yang disimpan di Jubelio
+
 ### Credentials Preparation
 
-- the tools need Jubelio creds: username and password
+Persiapan pertama sebelum memulai semuanya adalah kamu harus tanya klien apakah berkenan untuk membuatkan user baru dengan email punya Malika. Kalau mereka berkenan, simpan email dan password di tempat yang aman dulu ya.
 
 ### Clone and Create Profile
 
-### Copy the Webhook URL
+Langkahnya kurang lebih mirip sama pas ngebuat profil _webhook_ untuk Google Sheet, tapi ada sedikit perbedaan sebagai berikut.
+
+![Alur Membuat _Profile_ Baru (Jubelio)](../../../assets/search/create-jubelio-flow.png)
+<p style="text-align:center;">Alur Membuat _Profile_ Baru (Jubelio)</p>
+
+1. Memilih tipe Jubelio saat menekan tombol "Tambah Connector"
+2. Isi Email Jubelio (a) dan Password Jubelio (b) dari kredensial yang diberi klien, lalu diikuti dengan Nama Profil (c), Deskripsi Profil (d), dan Search Group (e)
+3. Pesan notifikasi akan muncul apabila proses penambahan berhasil
+
+<Aside>
+#### Naming the Profile
+
+Format nama yang diperbolehkan ketika ingin membuat profile _webhook_ hanya boleh dipisah menggunakan spasi, underscore (`_`), atau strip (`-`).
+
+Contoh:
+- katalog_malika_ai ✅
+- KATALOG MALIKA AI ✅
+- Katalog-Malika-AI ✅
+- Katalog@Malika@AI ❌
+- Katalog (Malika AI) ❌
+
+</Aside>
+
+### Register the Newly Created Webhook to Cekat AI
+
+Caranya sama persis dengan sebelumnya. Lihat [Register the Newly Created Webhook to Cekat AI (Google Sheet)](#register-the-newly-created-webhook-to-cekat-ai)
 
 ### Data Syncing
 
-- directly from tools.malika.ai
-- hit from sync trigger
+Caranya sama persis dengan sebelumnya. Lihat [Data Syncing (Google Sheet)](#data-syncing)
 
-### Search
+### Search Playground
 
-- relation from profile and search features
-- directly from tools.malika.ai
-- hit from Cekat AI in Integrations tab
+Caranya sama persis dengan sebelumnya. Lihat [Search Playground (Google Sheet)](#search-playground)
 
 ### Update and Delete
 
+Caranya sama persis dengan sebelumnya. Lihat [Update and Delete (Google Sheet)](#update-and-delete)
+
 ## Another Third Parties
 
-- by client requests:
-  - Accurate
-  - Shopify
-  - etc
+Untuk saat ini, _connector_ yang bisa di-_support_ oleh Malika Tools baru dua: Google Sheet dan Jubelio. Kian hari, Malika Tools v2 akan terus dikembangkan biar bisa support sama banyak platform, seperti Accurate, Shopify, dan lain sebagainya. 
+
+> Tools lebih beringas, jualan makin gassss, trainer tinggal kipas-kipas, letsgooo~ 🔥
