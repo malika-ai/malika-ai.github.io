@@ -196,22 +196,22 @@ Setelah udah buat profil baru (berupa _webhook_) untuk Google Sheet di Malika To
   c. Description ➡️ Buat deskripsi tentang kapan tools yang dibuat akan di-_trigger_ oleh si AI melalui percakapan dengan _customer_. _Better to use english instead_ \
   d. Webhook Address ➡️ Isi dengan URL yang sudah di-_copy_ dari Malika Tools \
   e. Max Tool Calls ➡️ Buat yang lebih banyak dari 30, misal `99999`
-5. Isi AI Inputs dengan data input webhook yang nilai kita mau dinamis ditentuin dari AI-nya \
+5. Isi AI Inputs dengan data input _webhook_ yang nilai kita mau dinamis ditentuin dari AI-nya \
   a. Name ➡️ `query` \
   b. Type ➡️ `Text` \
   c. Description ➡️ Sebenernya bebas, tapi _better_ diisi seperti yang di gambar dengan konteks `Example` yang disesuaiin. Format _keyword_ pencarian dari `query` dapat dilihat di [Delve More about Search feature](#delve-more-about-search-feature)
-6. Isi Additional Payload dengan data input webhook yang nilainya cukup dengan nilai statis \
+6. Isi Additional Payload dengan data input _webhook_ yang nilainya cukup dengan nilai statis \
   a. `limit` (Wajib) dan `fallback_fts` (Opsional)
   b. Klik tombol "Create Tool" untuk membuat tools baru di Cekat AI
 
 ### Delve More about Search feature
 
-Apabila kalian membuat profil baru di Malika Tools, yang terjadi sebenarnya adalah Malika Tools membuatkan sebuah _webhook_ API agar bisa dipanggil oleh tools yang ada di Cekat AI. Seperti pada webhook biasanya, webhook yang dibuat sama si Malika Tools ini memiliki dua nilai penting: 
+Apabila kalian membuat profil baru di Malika Tools, yang terjadi sebenarnya adalah Malika Tools membuatkan sebuah _webhook_ API agar bisa dipanggil oleh tools yang ada di Cekat AI. Seperti pada _webhook_ biasanya, _webhook_ yang dibuat sama si Malika Tools ini memiliki dua nilai penting: 
 
 1. _**URL Address**_ ➡️ berfungsi sebagai "alamat" yang diberikan Cekat AI spesifik untuk tools tersebut. Biasnya berisi URL dengan isi seperti `https://tools.malika.ai/api/search/nama-profile`
-2. _**Request Body**_ ➡️ Input yang dibutuhkan webhook untuk memproses pencarian. Input ini nantinya didaftarkan di tools Cekat AI pada segmen AI Inputs dan Additional Payload.
+2. _**Request Body**_ ➡️ Input yang dibutuhkan _webhook_ untuk memproses pencarian. Input ini nantinya didaftarkan di tools Cekat AI pada segmen AI Inputs dan Additional Payload.
 
-_Request body_ yang tersedia untuk webhook pada fitur Search ini ada 4, di mana 2 wajib dan 2 lainnya opsional.
+_Request body_ yang tersedia untuk _webhook_ pada fitur Search ini ada 4, di mana 2 wajib dan 2 lainnya opsional.
 
 ##### 1. `query` (Wajib)
 Berisi keyword pencarian untuk mendapatkan item tertentu yang relevan. Pencarian akan mencari berdasar kolom-kolom yang ter-_include_ di _search group_. Punya format khusus buat nyari data biar lebih fleksibel sebagai berikut.
