@@ -1,0 +1,182 @@
+---
+title: Custom Function
+description: A reference page in my new Starlight docs site.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Selain fitur [Search](/tools/search) dan [Ongkir](/tools/ongkir), Malika Tools juga nyediain fitur Custom Function, di mana kamu bisa nulis kode Python kamu sendiri untuk ngeakomodir _use case_ yang gak bisa diselesein dari fitur2 yang dah ada, tapi secara lebih fleksibel dan skalabel.
+
+
+## Prepare the Code
+
+Sebelum _dive deep_ ngecoba fitur ini, jangan lupa siapin kode kamu ya. Pastikan gak ada error di kode kamu sebelum dibuat _webhook_ khusus untuk itu. Kamu bisa IDE apapun yang kamu mau--Jupyter Notebook, Google Colab, atau bahkan VS Code juga boleh yang penting kodenya **Python**. 
+
+<Aside>
+
+Versi Python yang digunakan di Malika Tools adalah versi `3.11.x`
+
+</Aside>
+
+### Available Modules
+
+Tidak semua _module_ disediakan untuk _runtime_ Custom Function ini ya, tapi kamu bisa akses beberapa _additional module_ dari _third party_ seperti: 
+
+##### 1. `numpy`
+Kamu dapat mengakse dokumentasi `numpy` di sini: [Dokumentasi `numpy`](https://numpy.org/doc/)
+##### 2. `math`
+Kamu dapat mengakse dokumentasi `math` di sini: [Dokumentasi `math`](https://docs.python.org/3/library/math.html)
+##### 3. `base64`
+Kamu dapat mengakse dokumentasi `base64` di sini: [Dokumentasi `base64`](https://docs.python.org/3/library/base64.html)
+##### 4. `pytz`
+Kamu dapat mengakse dokumentasi `pytz` di sini: [Dokumentasi `pytz`](https://pypi.org/project/pytz/)
+##### 5. `collections`
+Kamu dapat mengakse dokumentasi `collections` di sini: [Dokumentasi `collections`](https://docs.python.org/3/library/collections.html)
+Berikut adalah lanjutan dokumentasi modul Python dalam format Markdown yang sesuai dengan contoh yang telah Anda berikan:
+##### 6. `evaluate`
+Kamu dapat mengakses dokumentasi `eval` di sini: [Dokumentasi `eval`](https://docs.python.org/3/library/functions.html#eval)
+##### 7. `request`
+Kamu dapat mengakses dokumentasi `request` di sini: [Dokumentasi `requests.request`](https://requests.readthedocs.io/en/latest/api/#requests.request)
+##### 8. `re`
+Kamu dapat mengakses dokumentasi `re` di sini: [Dokumentasi `re`](https://docs.python.org/3/library/re.html)
+##### 9. `datetime`
+Kamu dapat mengakses dokumentasi `datetime` di sini: [Dokumentasi `datetime`](https://docs.python.org/3/library/datetime.html#datetime-objects)
+##### 10. `dt`
+Kamu dapat mengakses dokumentasi `dt` di sini: [Dokumentasi `datetime.datetime`](https://docs.python.org/3/library/datetime.html#datetime.datetime)
+##### 11. `timedelta`
+Kamu dapat mengakses dokumentasi `timedelta` di sini: [Dokumentasi `datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta)
+
+Selain itu, ada juga _module_-_module_ internal milik Malika Tools sebagai berikut:
+##### 12. cek_ongkir
+
+Digunakan untuk ngecek ongkir, menerima input sebagai berikut (harus urut dari kiri): 
+- `origin` 
+  - Tipe data: `string`
+  - Nilai: Bebas, yang penting nama kecamatan, kabupaten, atau kecamatan kabupaten
+  - _Required_: Ya
+  - Nilai default: ❌
+- `destination`
+  - Tipe data: `string`
+  - Nilai: Bebas, yang penting nama kecamatan, kabupaten, atau kecamatan kabupaten
+  - _Required_: Ya
+  - Nilai default: ❌
+- `courier`
+  - Tipe data: `string`, 
+  - Nilai: `sicepat`, `pos`, `tiki`, `jne`, `pcp`, `esl`, `rpx`, `pandu`, `wahana`, `jnt`, `pahala`, `cahaya`, `sap`, `jet`, `indah`, `dse`, `slis`, `first`, `ncs`, `ninja`, atau `star`
+  - _Required_: Tidak
+  - Nilai default: `jne`
+- `weight`
+  - Tipe data: `int`
+  - Nilai: Bebas, yang penting dalam gram
+  - _Required_: Tidak
+  - Nilai default: `1000`
+
+###### Contoh:
+
+```python
+result = cek_ongkir('kutoarjo purworejo', 'mlati sleman', 'sicepat', 1200)
+```
+
+##### 13. gsheet_search
+
+Digunain buat nyari data di Google Sheet yang udah didaftarin sebagai profil di Malika Tools. Nerima input sebagai berikut:
+- `new_row`
+  - Tipe data: `dict`
+  - Nilai: Object/JSON berisi field-field sesuai dengan nama kolom di Google Sheet
+  - _Required_: Ya
+  - Nilai default: ❌
+- `id`
+  - Tipe data: `string`
+  - Nilai: ID dari profil Google Sheet/Jubelio yang dibuat
+  - _Required_: Ya
+  - Nilai default: ❌
+
+```python
+new_data = {
+    "row": {
+        "ID": 123,
+        "Nama": "str",
+        "Bisnis": "str",
+        "Tanggal": 45736.0,
+        "Jam_Sesi": 0.5416666666666666
+    }
+}
+
+result = gsheet_add_row(new_data, 'malika_JDSlkjdk2daskj')
+```
+
+##### 14. http
+Untuk melakukan _request_ HTTP yang berbasis [`httpx`](https://www.python-httpx.org/)
+
+
+### Example
+
+Misal kamu ingin membuat fungsi untuk menghitung total harga produk yang rumit dan tidak bisa diselesein sama AI. Pastiin kamu udah nulis dan udah coba dites di lokal. Untuk contoh kodenya kurang lebih seperti ini:
+
+```python
+def total(product_price: float, is_java: str, is_cod: str, delivery_cost: float):
+
+    final_price = 0
+
+    if is_java == "True":
+        final_price = product_price
+    else:
+        if(delivery_cost < 50000):
+            final_price = product_price + delivery_cost/2
+        else:
+            final_price = product_price + (delivery_cost - 25000)
+    
+    if is_cod == "True":
+        final_price += final_price * 0.03
+
+    return final_price
+```
+
+## Create New Function
+
+Setelah kodenya sudah siap dan tanpa _error_, kamu bisa membuat profil/_webhook_ baru di Malika Tools sebagai berikut:
+
+![Membuat Profil/_Webhook_ Baru untuk Custom Function](../../../assets/custom-function/create-function-flow.png)
+<p style="text-align:center;">Membuat Profil/_Webhook_ Baru untuk Custom Function</p>
+
+
+
+## Register the Custom Function Webhook to Cekat AI
+
+Kalau buat kodenya dah berhasil, kamu bisa daftarin profil/_webhook_ baru itu ke Cekat AI lewat fitur Integrations-nya.
+
+![Alur Mendaftarkan _Webhook_ ke Cekat AI](../../../assets/custom-function/input-webhook-flow-function.png)
+<p style="text-align:center;">Alur Mendaftarkan _Webhook_ ke Cekat AI</p>
+
+Sebelum di-_prompting_ untuk menyesuaikan terhadap fungsi baru yang udah dibuat, tes dulu apakah fungsinya bekerja dengan baik apa belum seperti yang ada di gambar pada langkah 4 dan 5.
+
+## Update and Delete
+
+Terdapat juga opearasi _update_ dan _delete_ fungsi yang sudah dibuat di bagian bawah kanan tampilan.
+
+![_Update_ dan _Delete_ Custom Function](../../../assets/custom-function/update-delete.png)
+<p style="text-align:center;">_Update_ dan _Delete_ Custom Function</p>
+
+
+
+{/* <!-- ## Prepare the Code
+
+### Available Modules
+
+### Use Your IDE
+
+## Create New Function
+
+## Execute Function
+
+Soon to be developed
+
+## Copy the Webhook URL
+
+- input request body
+- in Cekat
+  - name
+  - description
+  - request body: depends on the function args
+
+## Update and Delete --> */}
