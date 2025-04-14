@@ -228,6 +228,18 @@ Algoritma pencarian yang digunakan di Malika Tools versi baru ini pakai dua jeni
 
 _By default_, algoritma yang digunakan adalah **_exact_** atau **FTS**. Apabila hasil tidak ada yang match, maka akan di-_fallback_ atau di-_backup_ menggunakan algoritma _fuzzy_ agar tetap mendapatkan hasil yang paling dekat. Jika `fallback_fts` dimatikan (atau dibuat `false`), maka pencarian akan lebih `strict` dan terdapat kemungkinan menghasilkan nilai kosong.
 
+##### 4. `sort_by` (Opsional, _default_-nya kolom pertama dari tabel)
+
+Digunakan untuk menentukan data yang ditampilkan akan diurutkan berdasarkan kolom apa. Usahakan nama kolom ditulis persis--tanpa typo dengan yang ada di Google Sheet milik klien.
+
+##### 5. `order` (Opsional, _default_-nya `asc`)
+
+Biasanya kerja bareng `sort_by`, apakah diurutkan dalam urutan menaik/_ascending_ (`asc`) atau menurun/_descending_ (`desc`)
+
+Biar gak bingung, mimin kasih contoh salah satu klien yang pake semua inputnya, yang mana input `query` dibuat di AI Inputs, sedangkan sisanya dibuat di Additional Payload. 
+
+![Contoh Input yang Bisa Dipakai _Webhook_](../../../assets/search/input-example.png)
+<p style="text-align:center;">Contoh Input yang Bisa Dipakai _Webhook_</p>
 
 ### Data Syncing
 
