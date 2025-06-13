@@ -3,7 +3,7 @@ title: Custom Function
 description: A reference page in my new Starlight docs site.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, Card } from '@astrojs/starlight/components';
 
 Selain fitur [Search](/tools/search) dan [Ongkir](/tools/ongkir), Malika Tools juga nyediain fitur Custom Function, di mana kamu bisa nulis kode Python kamu sendiri untuk ngeakomodir _use case_ yang gak bisa diselesein dari fitur2 yang dah ada, tapi secara lebih fleksibel dan skalabel.
 
@@ -19,6 +19,10 @@ Versi Python yang digunakan di Malika Tools adalah versi `3.11.x`
 </Aside>
 
 ### Available Modules
+
+Terdapat beberapa modul yang bisa digunakan di dalam kode kamu. Ada beberapa modul yang _built-in_ dari Python, dan ada modul yang hanya tersedia di Malika Tools ini.
+
+#### Python Built-in Modules
 
 Tidak semua _module_ disediakan untuk _runtime_ Custom Function ini ya, tapi kamu bisa akses beberapa _additional module_ dari _third party_ seperti: 
 
@@ -46,10 +50,13 @@ Kamu dapat mengakses dokumentasi `dt` di sini: [Dokumentasi `datetime.datetime`]
 ##### 11. `timedelta`
 Kamu dapat mengakses dokumentasi `timedelta` di sini: [Dokumentasi `datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta)
 
-Selain itu, ada juga _module_-_module_ internal milik Malika Tools sebagai berikut:
+#### Malika Tools Modules
+
+Selain itu, ada juga _module_-_module_ internal milik Malika Tools yang bisa kamu pake. Ingat, semua fungsi merupakan fungsi `async` ya, jadi kamu harus menambahkan `await` di depan fungsi yang dipanggil. Untuk lebih jelasnya, kamu bisa cek contoh penggunaan di bawah ini.
 ##### 12. `cek_ongkir`
 
-Digunakan untuk ngecek ongkir, menerima input sebagai berikut (harus urut dari kiri): 
+Digunakan untuk ngecek ongkir pake API RajaOngkir, menerima input sebagai berikut (harus urut dari kiri): 
+
 - `origin` 
   - Tipe data: `string`
   - Nilai: Bebas, yang penting nama kecamatan, kabupaten, atau kecamatan kabupaten
@@ -71,42 +78,26 @@ Digunakan untuk ngecek ongkir, menerima input sebagai berikut (harus urut dari k
   - _Required_: Tidak
   - Nilai default: `1000`
 
-###### Contoh:
+Contoh penggunaan:
 
 ```python
-result = cek_ongkir('kutoarjo purworejo', 'mlati sleman', 'sicepat', 1200)
+async def your_function(origin: str, destination: str, courier: str, weight: int):
+    result = await cek_ongkir(origin, destination, courier, weight)
+    return result
 ```
 
-##### 13. `gsheet_search`
+Contoh isi _return_ `result`:
 
-Digunain buat nyari data di Google Sheet yang udah didaftarin sebagai profil di Malika Tools. Nerima input sebagai berikut:
-- `new_row`
-  - Tipe data: `dict`
-  - Nilai: Object/JSON berisi field-field sesuai dengan nama kolom di Google Sheet
-  - _Required_: Ya
-  - Nilai default: ❌
-- `id`
-  - Tipe data: `string`
-  - Nilai: ID dari profil Google Sheet/Jubelio yang dibuat
-  - _Required_: Ya
-  - Nilai default: ❌
-
-```python
-new_data = {
-    "row": {
-        "ID": 123,
-        "Nama": "str",
-        "Bisnis": "str",
-        "Tanggal": 45736.0,
-        "Jam_Sesi": 0.5416666666666666
-    }
+```json
+{
+  "ongkir": 12000,
+  "status": "success"
 }
-
-result = gsheet_add_row(new_data, 'malika_JDSlkjdk2daskj')
 ```
 
-##### 14. http
-Untuk melakukan _request_ HTTP yang berbasis [`httpx`](https://www.python-httpx.org/)
+<Card title="Invoice" icon="warning">
+  (Coming Soon). Sedang ditambah modul modul keren yang lain...
+</Card>
 
 
 ### Example
