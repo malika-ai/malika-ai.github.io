@@ -29,13 +29,12 @@ export default defineConfig({
 						{ label: 'Search', slug: 'tools/search' },
 						{ label: 'Cek Ongkir', slug: 'tools/ongkir' },
 						{ label: 'Custom Function', slug: 'tools/custom-function' },
-						{ label: 'Scheduler', slug: 'tools/scheduler' },
-						{ label: 'Invoice', slug: 'tools/invoice' },
 					],
 				},
 				{
 					label: 'Misc',
 					items: [
+						{ label: 'Server Observability', slug: 'misc/server-observability' },
 						{ label: 'Investigating Errors', slug: 'misc/investigating-errors' },
 					],
 				},

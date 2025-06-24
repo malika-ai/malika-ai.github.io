@@ -10,7 +10,9 @@ Selain fitur [Search](/tools/search) dan [Ongkir](/tools/ongkir), Malika Tools j
 
 ## Prepare the Code
 
-Sebelum _dive deep_ ngecoba fitur ini, jangan lupa siapin kode kamu ya. Pastikan gak ada error di kode kamu sebelum dibuat _webhook_ khusus untuk itu. Kamu bisa IDE apapun yang kamu mau--Jupyter Notebook, Google Colab, atau bahkan VS Code juga boleh yang penting kodenya **Python**. 
+Sebelum _dive deep_ ngecoba fitur ini, jangan lupa siapin kode kamu ya. Pastikan gak ada error di kode kamu sebelum dibuat _webhook_ khusus untuk itu. Kamu bisa IDE apapun yang kamu mau--Jupyter Notebook, Google Colab, atau bahkan VS Code juga boleh yang penting kodenya **Python**.
+
+Setelah fungsi kamu siap, kamu hanya perlu fungsi tunggal `def` tanpa _import_ apa-apa, karena _import_ sudah diatur di bagian [Available Modules](#available-modules).
 
 <Aside>
 
@@ -26,78 +28,278 @@ Terdapat beberapa modul yang bisa digunakan di dalam kode kamu. Ada beberapa mod
 
 Tidak semua _module_ disediakan untuk _runtime_ Custom Function ini ya, tapi kamu bisa akses beberapa _additional module_ dari _third party_ seperti: 
 
-##### 1. `numpy`
-Kamu dapat mengakse dokumentasi `numpy` di sini: [Dokumentasi `numpy`](https://numpy.org/doc/)
-##### 2. `math`
-Kamu dapat mengakse dokumentasi `math` di sini: [Dokumentasi `math`](https://docs.python.org/3/library/math.html)
-##### 3. `base64`
-Kamu dapat mengakse dokumentasi `base64` di sini: [Dokumentasi `base64`](https://docs.python.org/3/library/base64.html)
-##### 4. `pytz`
-Kamu dapat mengakse dokumentasi `pytz` di sini: [Dokumentasi `pytz`](https://pypi.org/project/pytz/)
-##### 5. `collections`
-Kamu dapat mengakse dokumentasi `collections` di sini: [Dokumentasi `collections`](https://docs.python.org/3/library/collections.html)
-Berikut adalah lanjutan dokumentasi modul Python dalam format Markdown yang sesuai dengan contoh yang telah Anda berikan:
-##### 6. `evaluate`
-Kamu dapat mengakses dokumentasi `eval` di sini: [Dokumentasi `eval`](https://docs.python.org/3/library/functions.html#eval)
-##### 7. `request`
-Kamu dapat mengakses dokumentasi `request` di sini: [Dokumentasi `requests.request`](https://requests.readthedocs.io/en/latest/api/#requests.request)
-##### 8. `re`
-Kamu dapat mengakses dokumentasi `re` di sini: [Dokumentasi `re`](https://docs.python.org/3/library/re.html)
-##### 9. `datetime`
-Kamu dapat mengakses dokumentasi `datetime` di sini: [Dokumentasi `datetime`](https://docs.python.org/3/library/datetime.html#datetime-objects)
-##### 10. `dt`
-Kamu dapat mengakses dokumentasi `dt` di sini: [Dokumentasi `datetime.datetime`](https://docs.python.org/3/library/datetime.html#datetime.datetime)
-##### 11. `timedelta`
-Kamu dapat mengakses dokumentasi `timedelta` di sini: [Dokumentasi `datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta)
+| No. | Module | Dokumentasi |
+|-----|--------|-------------|
+| 1   | `numpy` | [Dokumentasi `numpy`](https://numpy.org/doc/) |
+| 2   | `math` | [Dokumentasi `math`](https://docs.python.org/3/library/math.html) |
+| 3   | `base64` | [Dokumentasi `base64`](https://docs.python.org/3/library/base64.html) |
+| 4   | `pytz` | [Dokumentasi `pytz`](https://pypi.org/project/pytz/) |
+| 5   | `collections` | [Dokumentasi `collections`](https://docs.python.org/3/library/collections.html) |
+| 6   | `evaluate` | [Dokumentasi `eval`](https://docs.python.org/3/library/functions.html#eval) |
+| 7   | `request` | [Dokumentasi `requests.request`](https://requests.readthedocs.io/en/latest/api/#requests.request) |
+| 8   | `re` | [Dokumentasi `re`](https://docs.python.org/3/library/re.html) |
+| 9   | `datetime` | [Dokumentasi `datetime`](https://docs.python.org/3/library/datetime.html#datetime-objects) |
+| 10  | `dt` | [Dokumentasi `datetime.datetime`](https://docs.python.org/3/library/datetime.html#datetime.datetime) |
+| 11  | `timedelta` | [Dokumentasi `datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) |
+| 12  | `http` | [Dokumentasi `http`](https://www.python-httpx.org/api/) |
 
 #### Malika Tools Modules
 
-Selain itu, ada juga _module_-_module_ internal milik Malika Tools yang bisa kamu pake. Ingat, semua fungsi merupakan fungsi `async` ya, jadi kamu harus menambahkan `await` di depan fungsi yang dipanggil. Untuk lebih jelasnya, kamu bisa cek contoh penggunaan di bawah ini.
-##### 12. `cek_ongkir`
-
-Digunakan untuk ngecek ongkir pake API RajaOngkir, menerima input sebagai berikut (harus urut dari kiri): 
-
-- `origin` 
-  - Tipe data: `string`
-  - Nilai: Bebas, yang penting nama kecamatan, kabupaten, atau kecamatan kabupaten
-  - _Required_: Ya
-  - Nilai default: ❌
-- `destination`
-  - Tipe data: `string`
-  - Nilai: Bebas, yang penting nama kecamatan, kabupaten, atau kecamatan kabupaten
-  - _Required_: Ya
-  - Nilai default: ❌
-- `courier`
-  - Tipe data: `string`, 
-  - Nilai: `sicepat`, `pos`, `tiki`, `jne`, `pcp`, `esl`, `rpx`, `pandu`, `wahana`, `jnt`, `pahala`, `cahaya`, `sap`, `jet`, `indah`, `dse`, `slis`, `first`, `ncs`, `ninja`, atau `star`
-  - _Required_: Tidak
-  - Nilai default: `jne`
-- `weight`
-  - Tipe data: `int`
-  - Nilai: Bebas, yang penting dalam gram
-  - _Required_: Tidak
-  - Nilai default: `1000`
-
-Contoh penggunaan:
+Selain itu, ada juga _module_-_module_ internal milik Malika Tools yang bisa kamu pake. Kamu bisa melakukan pemanggilan modul-modul menggunakan fungsi `call(<nama-modul>, <payload>)` tersebut dengan cara seperti ini:
 
 ```python
-async def your_function(origin: str, destination: str, courier: str, weight: int):
-    result = await cek_ongkir(origin, destination, courier, weight)
-    return result
+# Contoh fungsi untuk search profile Google Sheet 
+async def contoh():
+  payload = {
+    "profile_id": "qhomemart_12345",
+    "body": {
+      "query": "selang",
+      "limit": 10
+    }
+  }
+
+  # Berupa object dengan key 'message' dan 'result'
+  response = await call("search", payload) 
+  return response['result']
 ```
 
-Contoh isi _return_ `result`:
+<Aside>
 
-```json
-{
-  "ongkir": 12000,
-  "status": "success"
-}
-```
+Semua fungsi Malika Tools merupakan fungsi `async` ya, jadi kamu harus menambahkan `await` di depan fungsi yang dipanggil. 
 
-<Card title="Invoice" icon="warning">
-  (Coming Soon). Sedang ditambah modul modul keren yang lain...
-</Card>
+</Aside>
+
+Lalu, apa saja nama-nama modul beserta payload yang tersedia? Dapat dilihat pada tabel berikut:
+
+<table>
+  <tr>
+    <th><div style="width:12rem;">Nama Modul</div></th>
+    <th>Cara Menggunakan Modul</th>
+    <th>Isi variabel `response`</th>
+  </tr>
+  <tr>
+    <td>
+    `search`
+    </td>
+    <td>
+    Melakukan pemanggilan `search` untuk mencari data di Database: Google Sheet, Jubelio, atau REST API. Perlu membuat profile baru dulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "profile_id": "indo_super_group",
+      "body": {
+        "query": "selang",
+        "limit": 10,
+        "fallback_fts": False, # Optional, default: True
+        "fallback_limit": 5, # Optional, default: 10
+        "sort_by": "col-1", # Optional, default: first column
+        "sort_order": "asc", # Optional, default: "asc"
+        "connector": "gsheet" # Optional, default: "gsheet"
+      }
+    }
+
+    response = await call("search", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": [
+        {"col-1": "value", "col-2": "value2"},
+        {"col-1": "value3", "col-2": "value4"}
+        ...
+      ]
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`direct_search`</td>
+    <td>
+    Melakukan pemanggilan `direct_search` untuk mencari data di Google Sheet. Perlu membuat Google Sheet profile terlebih dahulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "profile_id": "indo_super_group",
+      "body": {
+        "query": "selang",
+        "limit": 10,
+        "fallback_fts": False, # Optional
+        "fallback_limit": 10 # Optional
+      }
+    }
+
+    response = await call("direct_search", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": [
+        {"col-1": "value", "col-2": "value2"},
+        {"col-1": "value3", "col-2": "value4"}
+        ...
+      ]
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`cek_ongkir`</td>
+    <td>
+    Melakukan cek ongkir dengan API RajaOngkir
+
+    ```python
+    payload = {
+      "body": {
+        "origin": "Aksoro",
+        "destination": "Swalayan Negasa",
+        "courier": "jne",
+        "weight": 1300
+      }
+    }
+
+    response = await call("cek_ongkir", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": {
+        "origin": {
+          "province": "<province-1>",
+          "city": "<city-1>",
+          "subdistrict": "<subdistrict-1>"
+        },
+        "destination": {
+          "province": "<province-2>",
+          "city": "<city-2>",
+          "subdistrict": "<subdistrict-2>"
+        },
+        "ongkir": {
+          "code": "jne",
+          ...
+        },
+      }
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`search_address`</td>
+    <td>
+    Melakukan pemanggilan `search_address` untuk mencari data alamat pakai query.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "body": {
+        "query": "Aksoro"
+      }
+    }
+
+    response = await call("search_address", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": {
+        "id": "<id>",
+        "name": "<name>",
+        "address_name": "<address_name>",
+        "subdistrict": "<subdistrict>",
+        "district": "<district>",
+        "province": "<province>",
+        "country": "<country>",
+        "latitude": 0,
+        "longitude": 0,
+        "location_id": "<location-id>"
+      }
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`nearest_location`</td>
+    <td>
+    Mencari lokasi terdekat menggunakan fitur _nearest location_. Perlu membuat profil Nearest Location terlebih dahulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "nearest_location_id": "ebliethos_12345",
+      "body": {
+        "query": "Aksoro" # Address to search
+      }
+    }
+
+    response = await call("nearest_location", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": [
+        {
+            "id": "<id-1>",
+            "name": "Cabang Cilacap",
+            "address_name": "Sampang, Cilacap Regency, Central Java, Indonesia",
+            ...
+            "distance": 125.75644669718577
+        },
+        {
+            "id": "<id-2>",
+            "name": "Cabang Surabaya",
+            "address_name": "Rungkut, Surabaya, East Java, Indonesia",
+            ...
+            "distance": 275.79143867984294
+        }
+      ]
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`gsheet_add_rows`</td>
+    <td>
+    Menambahkan banyak data ke Google Sheet. Perlu membuat Google Sheet profile terlebih dahulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "profile_id": "indo_super_group",
+      "exclude_id": True, # If true, the first column will be excluded from the data. Default: True
+      "body": [
+          {"col-1": "new-value-1", "col-2": "new-value-2"}, 
+          {"col-1": "new-value-3", "col-2": "new-value-4"} 
+          ...
+      ]
+    }
+
+    response = await call("gsheet_add_rows", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": {
+        "id": "<profile-id>"
+      }
+    }
+    ```
+    </td>
+  </tr>
+</table>
 
 
 ### Example
@@ -107,21 +309,114 @@ Misal kamu ingin membuat fungsi untuk menghitung total harga produk yang rumit d
 ```python
 def total(product_price: float, is_java: str, is_cod: str, delivery_cost: float):
 
-    final_price = 0
+  final_price = 0
 
-    if is_java == "True":
-        final_price = product_price
+  if is_java == "True":
+    final_price = product_price
+  else:
+    if(delivery_cost < 50000):
+        final_price = product_price + delivery_cost/2
     else:
-        if(delivery_cost < 50000):
-            final_price = product_price + delivery_cost/2
-        else:
-            final_price = product_price + (delivery_cost - 25000)
-    
-    if is_cod == "True":
-        final_price += final_price * 0.03
+        final_price = product_price + (delivery_cost - 25000)
+  
+  if is_cod == "True":
+    final_price += final_price * 0.03
 
-    return final_price
+  return final_price 
 ```
+
+### More Complex Example
+
+Misal kamu ingin membuat fungsi untuk menghitung ongkir dari kantor Aksoro, yang mana data asalnya didapat dari modul _nearest location_ dari gudang Ebliethos, kamu dapat melakukan hal seperti ini:
+
+```python
+async def nearest_ongkir():  
+  # Define the destination first
+  destination = "Aksoro"
+  
+  # Call the nearest_location module
+  payload_nearest = {
+    "nearest_location_id": "ebliethos_o77xhq8bsa2teolpf6ek",
+    "body": {
+      "query": destination
+    }
+  }
+  response = await call("nearest_location", payload_nearest)
+
+  # Get nearest address then pick the address name
+  nearest = response['result'][0]["address_name"]
+
+  # Then call the cek_ongkir module
+  payload_ongkir = {
+    "body": {
+      "origin": nearest, # Use nearest address
+      "destination": destination,
+      "courier": "jne", # or 'sicepat' or 'ninja' or anything else
+      "weight": 1000 # in KG
+    }
+  }
+  response = await call("cek_ongkir", payload_ongkir)
+
+  return response['result']
+```
+
+Fungsi tersebut akan mengembalikan hasil seperti ini:
+
+```json
+{
+  "origin": {
+    "province": "Jawa Tengah",
+    "city": "Kabupaten Cilacap",
+    "subdistrict": "Sampang"
+  },
+  "destination": {
+    "province": "DI Yogyakarta",
+    "city": "Kabupaten Sleman",
+    "subdistrict": "Gamping"
+  },
+  "ongkir": {
+    "code": "jne",
+    "name": "Jalur Nugraha Ekakurir (JNE)",
+    "costs": [
+      {
+        "service": "JTR",
+        "description": "JNE Trucking",
+        "cost": [
+          {
+            "value": 40000,
+            "etd": "4-5",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "service": "REG",
+        "description": "Layanan Reguler",
+        "cost": [
+          {
+            "value": 12000,
+            "etd": "3-6",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "service": "YES",
+        "description": "Yakin Esok Sampai",
+        "cost": [
+          {
+            "value": 15000,
+            "etd": "1-1",
+            "note": ""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Mudah bukan? 😁👍
 
 ## Create New Function
 
@@ -148,26 +443,10 @@ Terdapat juga opearasi _update_ dan _delete_ fungsi yang sudah dibuat di bagian 
 ![_Update_ dan _Delete_ Custom Function](../../../assets/custom-function/update-delete.png)
 <p style="text-align:center;">_Update_ dan _Delete_ Custom Function</p>
 
+## Run (New)
 
+Sekarang, kamu bisa langsung menjalankan fungsi di dalam dashboard tools.malika.ai loh! Caranya dengan klik tombol Run di bagian tombol bawah kanan.
 
-{/* <!-- ## Prepare the Code
+![Menjalankan Custom Function](../../../assets/custom-function/run-function.png)
+<p style="text-align:center;">Menjalankan Custom Function</p>
 
-### Available Modules
-
-### Use Your IDE
-
-## Create New Function
-
-## Execute Function
-
-Soon to be developed
-
-## Copy the Webhook URL
-
-- input request body
-- in Cekat
-  - name
-  - description
-  - request body: depends on the function args
-
-## Update and Delete --> */}
