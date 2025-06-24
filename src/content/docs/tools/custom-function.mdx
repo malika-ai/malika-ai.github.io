@@ -325,6 +325,23 @@ def total(product_price: float, is_java: str, is_cod: str, delivery_cost: float)
   return final_price 
 ```
 
+<Aside type="danger">
+
+Kamu tidak perlu menggunakan return di `def`, karena dapat menyebabkan error. Misal seperti ini:
+
+```python
+
+# Salah ❌
+def total(final_price: float) -> float:
+  return final_price
+
+# Benar ✅
+def total(final_price: float):
+  return final_price
+```
+
+</Aside>
+
 ### More Complex Example
 
 Misal kamu ingin membuat fungsi untuk menghitung ongkir dari kantor Aksoro, yang mana data asalnya didapat dari modul _nearest location_ dari gudang Ebliethos, kamu dapat melakukan hal seperti ini:
