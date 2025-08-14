@@ -299,6 +299,222 @@ Lalu, apa saja nama-nama modul beserta payload yang tersedia? Dapat dilihat pada
     ```
     </td>
   </tr>
+  <tr>
+    <td>`gsheet_add_row`</td>
+    <td>
+    Menambahkan satu baris data ke Google Sheet. Perlu membuat Google Sheet profile terlebih dahulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "profile_id": "indo_super_group",
+      "exclude_id": True, # If true, the first column will be excluded from the data. Default: True
+      "body": {"col-1": "new-value-1", "col-2": "new-value-2", "col-...": "new-value-..."}
+    }
+
+    response = await call("gsheet_add_row", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": {
+        "id": "<profile-id>"
+      }
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`gsheet_upsert_row`</td>
+    <td>
+    Menambahkan atau memperbarui satu baris data di Google Sheet berdasarkan ID. Perlu membuat Google Sheet profile terlebih dahulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "profile_id": "indo_super_group",
+      "body": {"id": "row-id", "col-1": "updated-value-1", "col-2": "updated-value-2"}
+    }
+
+    response = await call("gsheet_upsert_row", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": {
+        "id": "<profile-id>"
+      }
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`gsheet_upsert_rows`</td>
+    <td>
+    Menambahkan atau memperbarui banyak baris data di Google Sheet berdasarkan ID. Perlu membuat Google Sheet profile terlebih dahulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "profile_id": "indo_super_group",
+      "body": [
+        {"id": "row-id-1", "col-1": "updated-value-1", "col-2": "updated-value-2"},
+        {"id": "row-id-2", "col-1": "updated-value-3", "col-2": "updated-value-4"}
+      ]
+    }
+
+    response = await call("gsheet_upsert_rows", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": {
+        "id": "<profile-id>"
+      }
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`gsheet_sync`</td>
+    <td>
+    Melakukan sinkronisasi data Google Sheet dengan database lokal. Perlu membuat Google Sheet profile terlebih dahulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "profile_id": "indo_super_group"
+    }
+
+    response = await call("gsheet_sync", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": {
+        "id": "<profile-id>"
+      }
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`gsheet_get`</td>
+    <td>
+    Mengambil data dari Google Sheet berdasarkan profile ID. Perlu membuat Google Sheet profile terlebih dahulu lalu dapetin ID-nya.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "profile_id": "indo_super_group"
+    }
+
+    response = await call("gsheet_get", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": [
+        {"col-1": "value", "col-2": "value2"},
+        {"col-1": "value3", "col-2": "value4"}
+        ...
+      ]
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`schedule_job_once`</td>
+    <td>
+    Menjadwalkan webhook job yang akan dijalankan sekali pada waktu tertentu. Job akan mengirim POST request ke URL yang ditentukan dengan data dan headers yang diberikan.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "body": {
+        "profile_name": "send_notification",
+        "url": "<your-webhook-url>", # If you want internal webhook, you can use the format: f'{HOST}/<path>'
+        "data": {
+          "key-1": "value-1",
+          "key-2": "value-2",
+          ...
+        },
+        "headers": {
+          "Content-Type": "application/json",
+          ...
+        },
+        "hour": 10,   
+        "minute": 0,  
+        "second": 0   
+      }
+    }
+
+    response = await call("schedule_job_once", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "Task scheduled successfully",
+      "result": {
+        "job": "2024-01-15T10:00:00+07:00"
+      }
+    }
+    ```
+    </td>
+  </tr>
+  <tr>
+    <td>`run_func`</td>
+    <td>
+    Menjalankan fungsi custom function lain berdasarkan function ID. Berguna untuk membuat fungsi yang saling terhubung.
+
+    ```python
+    payload = {
+      "headers": {
+        "X-API-Key": "<api-key>" # api-key can be obtained from dev
+      },
+      "func_id": "calculate_total_12345",
+      "body": {
+        "arg-1": "value-1",
+        "arg-2": "value-2",
+        ...
+      }
+    }
+
+    response = await call("run_func", payload)
+    ```
+    </td>
+    <td>
+    ```json
+    {
+      "message": "<message>",
+      "result": "<result-from-custom-function>"
+    }
+    ```
+    </td>
+  </tr>
 </table>
 
 
@@ -466,4 +682,3 @@ Sekarang, kamu bisa langsung menjalankan fungsi di dalam dashboard tools.malika.
 
 ![Menjalankan Custom Function](../../../assets/custom-function/run-function.png)
 <p style="text-align:center;">Menjalankan Custom Function</p>
-
